@@ -10,13 +10,26 @@ ENV git_email anton.benkevich@gmail.com
 RUN yum install -y epel-release
 RUN yum install -y centos-release-SCL
 
-## Install system tools
+## Install system tools and utils
 RUN yum install openssh-server openssh-client -y
-RUN yum install bash-completion sudo -y
+RUN yum install bash-completion sudo wget -y
 
 ## Install dev tools
 RUN yum install gcc automake autoconf git -y
-RUN rpm -if http://www.rabbitmq.com/releases/erlang/erlang-18.3-1.el6.x86_64.rpm
+
+##setup erlang repo
+ADD http://packages.erlang-solutions.com/rpm/centos/erlang_solutions.repo /etc/yum.repos.d/
+
+## setup erlang
+RUN yum install esl-erlang-18.3-1 -y
+#RUN yum install esl-erlang-17.5.3 -y
+#RUN yum install esl-erlang-R16B03-6 -y
+
+## alternative ways to install erlang
+#RUN yum install http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_16.b.3-1~centos~6_amd64.rpm -y
+#RUN yum install http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_17.5-1~centos~6_amd64.rpm -y
+#RUN yum install http://packages.erlang-solutions.com/site/esl/esl-erlang/FLAVOUR_1_general/esl-erlang_18.3-1~centos~6_amd64.rpm -y
+#RUN wget https://raw.githubusercontent.com/kerl/kerl/master/kerl -O /root/kerl
 
 ##Configure steps
 
