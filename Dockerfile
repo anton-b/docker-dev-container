@@ -33,16 +33,13 @@ RUN yum install esl-erlang-18.3-1 -y
 
 ##Configure steps
 
-## git initial config
-
-RUN git config --global user.name "${git_user}"
-RUN git config --global user.email ${git_email}
-
 ## User setup
 RUN groupadd sudo
 RUN useradd ${sys_user} -g sudo
-RUN echo ${sys_user}:password | chpasswd
+RUN echo ${sys_user}:${sys_user_password} | chpasswd
 RUN echo '%sudo    ALL=(ALL)       ALL' >> /etc/sudoers
+RUN echo "git config --global user.name \"${git_user}\"" >> /home/${sys_user}/.bash_profile
+RUN echo "git config --global user.email ${git_email}" >> /home/${sys_user}/.bash_profile
 
 ## Install ssh identity
 COPY files/dot_ssh/* /home/${sys_user}/.ssh/
