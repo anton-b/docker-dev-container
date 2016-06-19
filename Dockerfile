@@ -12,7 +12,7 @@ RUN yum install -y centos-release-SCL
 
 ## Install system tools and utils
 RUN yum install openssh-server openssh-client -y
-RUN yum install bash-completion sudo wget -y
+RUN yum install bash-completion sudo wget vim tmux -y
 
 ## Install dev tools
 RUN yum install gcc automake autoconf git -y
@@ -33,13 +33,14 @@ RUN yum install esl-erlang-18.3-1 -y
 
 ##Configure steps
 
-## User setup
+## Dev User setup
 RUN groupadd sudo
 RUN useradd ${sys_user} -g sudo
 RUN echo ${sys_user}:${sys_user_password} | chpasswd
 RUN echo '%sudo    ALL=(ALL)       ALL' >> /etc/sudoers
 RUN echo "git config --global user.name \"${git_user}\"" >> /home/${sys_user}/.bash_profile
 RUN echo "git config --global user.email ${git_email}" >> /home/${sys_user}/.bash_profile
+RUN echo "git config --global core.editor vim" >> /home/${sys_user}/.bash_profile
 
 ## Install ssh identity
 COPY files/dot_ssh/* /home/${sys_user}/.ssh/
