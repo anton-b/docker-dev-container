@@ -8,8 +8,10 @@ rm:
 	docker stop centos-dev
 	docker rm centos-dev
 run:
-	docker run -d -v /c/Users/:/c/Users/ --name centos-dev centos-dev
-	#docker run -d -v /home/:/host_home/ --name centos-dev centos-dev
+    #Windows style folders share
+	docker run -d -v /c/Users/:/Users/ --name centos-dev centos-dev
+	#Mac OS
+	#docker run -d -v /Users/:/Users/ --name centos-dev centos-dev
 
 attach:
 	docker exec -i -t centos-dev /bin/bash
