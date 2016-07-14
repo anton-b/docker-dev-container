@@ -14,10 +14,10 @@ rm:stop
 	docker rm centos-dev
 
 run:
-	#Windows style folders share
-	#docker run -d -v /c/Users/:/Users/ --name centos-dev centos-dev
+    #Windows style folders share
+	docker run --dns 127.0.0.1 -d -v /c/Users/:/Users/ --name centos-dev centos-dev
 	#Mac OS
-	docker run -d -v /Users/:/Users/ --net=centos-dev --name centos-dev centos-dev
+	docker run --dns 127.0.0.1 -d -v /Users/:/Users/ --net=centos-dev --name centos-dev centos-dev
 
 start:
 	docker start centos-dev
